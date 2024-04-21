@@ -1,8 +1,23 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.option-button {
+    width: 50%;
+    height: 100px;
+    font-size: 22px;
+    display: block;
 }
 
-a {
-  color: #00B7FF;
+#options-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 30%;
 }
+
+#flag-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.flag {
+    height: 35vh;
+    margin: 30px;
+}
+

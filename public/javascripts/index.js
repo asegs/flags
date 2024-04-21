@@ -13,7 +13,7 @@ const nRandomItems = (list, n) => {
     return Array.from(selectedIndexes).map(i => list[i]);
 }
 const randomRegionList = (countries, key) => {
-    if (key !== 'region' || key !== 'subregion') {
+    if (key !== 'region' && key !== 'subregion') {
         return countries;
     }
     const regions = Array.from(new Set(countries.map(country => country[key])));
@@ -50,33 +50,31 @@ function onLoad () {
         .then(body => {
             const countryIndex = randomIndex(body);
             const selectedCountry = body[countryIndex];
-            displayFlag(selectedCountry);
+            displayFlag(selectedCountry, true, "&nbsp;");
             addButtons(body, countryIndex);
         })
 }
 
-function displayFlag (countryData) {
+function displayFlag (countryData, isRight, text) {
     const code = countryData['code'];
-    const mainDiv = document.getElementById("flag-options");
+    const mainDiv = document.getElementById(isRight ? "right-container" : "wrong-container");
     const newImage = document.createElement("img");
     newImage.src = "https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/" + code + ".svg";
-    newImage.style.height = "300px";
+    newImage.classList.add("flag");
+    newImage.id = isRight ? "right" : "wrong";
+    const message = document.createElement("p")
+    message.innerHTML = text
+    mainDiv.append(message)
     mainDiv.append(newImage);
 }
 
 function addButtons (countries, correctIndex) {
-    const mainDiv = document.getElementById("flag-options");
+    const mainDiv = document.getElementById("options-container");
     countries.forEach((country, i) => {
         const button = document.createElement("button");
         button.innerHTML = country['name'];
-        button.style.width = "15%"
-        button.style.maxHeight = "100px"
-        button.style.minHeight = "100px"
-        button.style.fontSize = "22px"
+        button.classList.add("option-button");
         button.id = country['code'];
-        if (i % 2 === 0) {
-            mainDiv.append(document.createElement("br"))
-        }
 
         if (i === correctIndex) {
             button.onclick = () => {
@@ -86,11 +84,7 @@ function addButtons (countries, correctIndex) {
             button.onclick = () => {
                 document.getElementById(button.id).style.background = "red";
                 document.getElementById(countries[correctIndex]['code']).style.background = "green"
-                const message = document.createElement("p")
-                message.innerHTML = "The country you selected has this flag:"
-                mainDiv.append(message)
-                mainDiv.append(document.createElement("br"))
-                displayFlag(countries[i])
+                displayFlag(countries[i], false,"The country you selected has this flag:")
             }
         }
 

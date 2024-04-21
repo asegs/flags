@@ -41,7 +41,7 @@ const nRandomItems = (list, n) => {
 router.get('/getOptions/world/:count', function(req, res, next) {
   const count = req.params['count']
   let cutoff = Number(req.query['cutoff']);
-  if (!cutoff) {
+  if (isNaN(cutoff) || cutoff === 0) {
     cutoff = countries.length;
   }
   const subset = countries.slice(0, cutoff);
@@ -51,7 +51,7 @@ router.get('/getOptions/world/:count', function(req, res, next) {
 router.get('/getOptions/region/:count', function(req, res, next) {
   const count = req.params['count']
   let cutoff = Number(req.query['cutoff']);
-  if (isNaN(cutoff)) {
+  if (isNaN(cutoff) || cutoff === 0) {
     cutoff = countries.length;
   }
   const subset = countries.slice(0, cutoff);
@@ -65,7 +65,7 @@ router.get('/getOptions/region/:count', function(req, res, next) {
 router.get('/getOptions/subregion/:count', function(req, res, next) {
   const count = req.params['count']
   let cutoff = Number(req.query['cutoff']);
-  if (isNaN(cutoff)) {
+  if (isNaN(cutoff) || cutoff === 0) {
     cutoff = countries.length;
   }
   const subset = countries.slice(0, cutoff);

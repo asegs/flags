@@ -13,6 +13,9 @@ const nRandomItems = (list, n) => {
     return Array.from(selectedIndexes).map(i => list[i]);
 }
 const randomRegionList = (countries, key) => {
+    if (key !== 'region' || key !== 'subregion') {
+        return countries;
+    }
     const regions = Array.from(new Set(countries.map(country => country[key])));
     const randomRegion = regions[randomIndex(regions)];
     return countries.filter(country => country[key] === randomRegion);

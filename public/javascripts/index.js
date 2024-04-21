@@ -56,7 +56,7 @@ function displayFlag (countryData) {
     const code = countryData['code'];
     const mainDiv = document.getElementById("flag-options");
     const newImage = document.createElement("img");
-    newImage.src = "/resources/svg/" + code + ".svg";
+    newImage.src = "https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/" + code + ".svg";
     newImage.style.height = "300px";
     mainDiv.append(newImage);
 }

@@ -38,10 +38,10 @@ const nRandomItems = (list, n) => {
 }
 
 /* GET users listing. */
-router.get('/getOptions/:count', function(req, res, next) {
+router.get('/getOptions/world/:count', function(req, res, next) {
   const count = req.params['count']
   let cutoff = Number(req.query['cutoff']);
-  if (isNaN(cutoff)) {
+  if (!cutoff) {
     cutoff = countries.length;
   }
   const subset = countries.slice(0, cutoff);

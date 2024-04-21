@@ -3,7 +3,14 @@ const randomIndex = (list) => {
 }
 
 function onLoad () {
-    fetch("/flags/getOptions/region/8?cutoff=196")
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
+    const grouping = params['grouping'] || 'world';
+    const count = params['count'] || 4;
+    const cutoff = params['cutoff'] || 0;
+
+    fetch("/flags/getOptions/"+ grouping +"/"+ count +"?cutoff=" + cutoff)
         .then(res => res.json())
         .then(body => {
             const countryIndex = randomIndex(body);
